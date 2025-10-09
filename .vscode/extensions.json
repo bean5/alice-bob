@@ -1,0 +1,7 @@
+{
+  "recommendations": [
+    "ms-vscode.makefile-tools",
+    "bbenoist.nix",
+    "ms-python.python"
+  ]
+}

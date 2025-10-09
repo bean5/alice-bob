@@ -1,0 +1,15 @@
+# Jupyter core
+ipykernel
+jupyter-core
+jupyterlab
+notebook
+
+# for this project
+cryptography
+fastapi[standard]
+
+# generally helpful in notebooks
+matplotlib
+numpy
+pandas
+pip

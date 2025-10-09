@@ -12,15 +12,40 @@ If you want to modify this project in VS Code (or derivatives), there are some r
 
 ## Requirements
 
-Python 3.14
+Python 3.14^
+[uv](https://github.com/astral-sh/uv) by [Astral](https://github.com/astral-sh) (`pip install uv`)
+
+## Advised
+
+Docker
 
 ## Setup
 
 ```sh
-pip install -r requirements.txt
-make start_api &
-make test
+cd ./
+cd api/
+
+uv sync
+uv run fastapi dev main.py &
+
+cd ..
+cd client/
+
+uv sync
+uv run main.py
 ```
+
+OR with docker:
+
+```sh
+docker compose build
+docker compose up -d api
+docker compose run client
+```
+
+## Notes
+
+This project uses FastAPI. Swagger docs are automatically generated as a result and once the service is up, they are available at <http://localhost/docs>
 
 ## Ideas
 
@@ -29,12 +54,3 @@ make test
   - Docker containers
   - NixOS flakes
 - For development, add hot-reload in API to streamline iteration
-
-## Development
-
-This project includes some development infrastructure in `./notebooks/` such as:
-
-- main.ipynb
-- nix flake
-
-The requirements to run that are in that same folder. If you are running nix, standing up the jupyter server is simple: `cd nixos; nix develop`

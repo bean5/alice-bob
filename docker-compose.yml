@@ -1,0 +1,43 @@
+services:
+  api:
+    build:
+      context: ./api/
+      dockerfile_inline: |
+        FROM python:3.13-alpine3.22
+        RUN apk add --no-cache gcc musl-dev linux-headers python3-dev
+        RUN pip install uv
+        # RUN curl -LsSf https://astral.sh/uv/install.sh | sh
+
+        WORKDIR /app
+        ADD pyproject.toml  ./
+        RUN uv sync
+        RUN source .venv/bin/activate
+    command: sh -c "source .venv/bin/activate; uvicorn src.main:app --reload --port 8080"
+    environment:
+      - PORT=8080
+    ports:
+      - 8080:8080
+    volumes:
+      - ./api/src/:/app/src:ro
+    working_dir: /app/
+
+  client:
+    build:
+      context: ./client/
+      dockerfile_inline: |
+        FROM python:3.13-alpine3.22
+        RUN apk add --no-cache gcc musl-dev linux-headers python3-dev
+        RUN pip install uv
+        # RUN curl -LsSf https://astral.sh/uv/install.sh | sh
+
+        WORKDIR /app
+        ADD pyproject.toml  ./
+        RUN uv sync
+        RUN source .venv/bin/activate
+        ADD .               ./
+    command: sh -c "uv run main.py"
+    environment:
+      - API_URL=http://api:8080
+    links:
+      - api
+    working_dir: /app/

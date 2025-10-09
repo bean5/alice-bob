@@ -1,0 +1,10 @@
+[project]
+name = "alice-bob"
+version = "0.1.0"
+description = "demo for message signing and verification; client-side"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "cryptography>=46.0.2",
+    "requests>=2.32.5",
+]

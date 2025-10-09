@@ -1,0 +1,22 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "FastAPI Debugger",
+      "type": "python",
+      "request": "launch",
+      "module": "uvicorn",
+      "args": [
+        "src.main:app", // Replace 'main:app' with the actual path to your FastAPI instance (e.g., 'src.main:app' if your main.py is in a 'src' folder)
+        "--reload",
+        "--port",
+        "8000" // Optional: Specify the port if different from the default 8000
+      ],
+      "jinja": true,
+      "justMyCode": true,
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}" // Ensures Python can find your modules
+      }
+    }
+  ]
+}
